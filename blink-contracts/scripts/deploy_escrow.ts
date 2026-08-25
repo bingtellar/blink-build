@@ -20,7 +20,7 @@ const alice = Keypair.fromSecret(process.env.ADMIN_SECRET!);
 const TREASURY_ADDRESS = process.env.TREASURY_ADDRESS!;
 
 async function deploy() {
-    console.log("🌊 Starting Bingtellar Vault Deployment Protocol (Single-Step Auth)...");
+    console.log("🌊 Starting BLINK (Bingtellar) Vault Deployment Protocol (Single-Step Auth)...");
     
     // const AGREEMENT_TYPE: "Instant" | "Lock" = "Instant"; 
 
@@ -142,7 +142,7 @@ async function deploy() {
     if (txRes.status === rpc.Api.GetTransactionStatus.SUCCESS) {
         const newVaultId = scValToNative(txRes.returnValue!);
         console.log("-------------------------------------------------------");
-        console.log(`🔥 SUCCESS: BINGTELLAR ${AGREEMENT_TYPE.toUpperCase()} VAULT IS LIVE`);
+        console.log(`🔥 SUCCESS: BLINK (BINGTELLAR) ${AGREEMENT_TYPE.toUpperCase()} VAULT IS LIVE`);
         console.log(`📍 VAULT CONTRACT ID: ${newVaultId}`);
 
         if (AGREEMENT_TYPE === "Lock") {
