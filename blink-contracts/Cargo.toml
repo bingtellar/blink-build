@@ -1,0 +1,25 @@
+[workspace]
+resolver = "2"
+members = [
+    "contracts/vault",
+    "contracts/factory",
+    "contracts/mock_defindex",
+    "packages/blink-types",
+]
+
+[workspace.dependencies]
+soroban-sdk = "20.5.0"
+blink-types = { path = "packages/blink-types" }
+
+[workspace.lints.rust]
+# Simplified to clear the "unused manifest key" warning on our stable compiler
+unexpected_cfgs = "allow"
+
+[profile.release]
+opt-level = "z"
+overflow-checks = true
+debug = 0
+strip = "debuginfo"
+panic = "abort"
+codegen-units = 1
+lto = true

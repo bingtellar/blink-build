@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+   🎨 SLEEK GLOBAL SCROLLBARS (Cross-Browser)
+   ========================================================================= */
+
+
+/* 1. Firefox Support (Matches RadarCopilot) */
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #f5f5f5 transparent;
+}
+
+
+/* 2. WebKit / Chrome / Safari / Edge Support */
+
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #E5E7EB;
+    border-radius: 9999px;
+    /* Matches Tailwind's rounded-full */
+    transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #D1D5DB;
+}

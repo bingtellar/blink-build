@@ -1,0 +1,15 @@
+{
+    "name": "blink-contracts",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Bink Protocol Smart Contracts",
+    "scripts": {
+        "test": "cargo test"
+    },
+    "dependencies": {
+        "@stellar/stellar-sdk": "^14.6.1",
+        "dotenv": "^16.6.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.3"
+    }
+}

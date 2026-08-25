@@ -1,0 +1,21 @@
+{
+    "folders": [
+		{
+			"name": "sandbox-1",
+			"path": "../../.."
+		},
+		{
+			"name": "blink-protocol",
+			"path": "../../../../blink-protocol"
+		},
+		{
+			"path": "../../../../blink-backend"
+		},
+		{
+			"path": "../../../../blink-liquidity-service"
+		}
+	],
+	"settings": {
+		"compile-hero.disable-compile-files-on-did-save-code": false
+	}
+}

@@ -1,0 +1,93 @@
+import { useEffect, useRef } from 'react';
+
+// 🌟 FIX 1: Safe ENV fallback preventing the 'undefined/api/' loop
+const envApiUrl = import.meta.env.VITE_API_URL;
+const API_BASE = envApiUrl && envApiUrl !== "undefined" ? envApiUrl : "http://localhost:3001/api";
+
+export function useBlinkStream(onEvent: (eventName: string, payload: any) => void) {
+    const isConnecting = useRef(false);
+    
+    // 🌟 FIX 2: Store the latest callback in a ref to break the infinite render loop
+    const savedCallback = useRef(onEvent);
+
+    // Keep the ref strictly up-to-date without triggering the main effect
+    useEffect(() => {
+        savedCallback.current = onEvent;
+    }, [onEvent]);
+
+    useEffect(() => {
+        let abortController = new AbortController();
+        let retryCount = 0;
+
+        const connectStream = async () => {
+            if (isConnecting.current) return;
+            isConnecting.current = true;
+
+            try {
+                const response = await fetch(`${API_BASE}/events/stream`, {
+                    method: 'GET',
+                    credentials: 'include', // Automatically passes bingtellar_jwt HttpOnly cookie
+                    signal: abortController.signal,
+                });
+
+                if (!response.ok || !response.body) throw new Error("Stream connection rejected.");
+                
+                retryCount = 0; 
+                isConnecting.current = false;
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder('utf-8');
+                let buffer = '';
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    
+                    if (done) {
+                        // 🌟 FIX 3: Server closed gracefully. Throw error to trigger auto-reconnect!
+                        throw new Error("Stream safely closed by server. Reconnecting..."); 
+                    }
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n\n');
+                    buffer = lines.pop() || ''; 
+
+                    for (const block of lines) {
+                        if (block.startsWith(':')) continue; 
+
+                        const eventMatch = block.match(/event:\s*(.+)/);
+                        const dataMatch = block.match(/data:\s*(.+)/);
+
+                        if (eventMatch && dataMatch) {
+                            try {
+                                const eventName = eventMatch[1].trim();
+                                const payload = JSON.parse(dataMatch[1].trim());
+                                
+                                // Execute the latest function without being in the dependency array
+                                if (savedCallback.current) {
+                                    savedCallback.current(eventName, payload);
+                                }
+                            } catch (e) {
+                                console.warn("Failed to parse SSE payload", block);
+                            }
+                        }
+                    }
+                }
+            } catch (err: any) {
+                isConnecting.current = false;
+                if (err.name === 'AbortError') return; 
+                
+                // Exponential backoff: Max 10 seconds between retries
+                const timeout = Math.min(1000 * Math.pow(2, retryCount), 10000);
+                retryCount++;
+                setTimeout(connectStream, timeout);
+            }
+        };
+
+        connectStream();
+
+        return () => {
+            abortController.abort();
+            isConnecting.current = false;
+        };
+    }, []); // 🌟 EMPTY ARRAY: The connection mounts exactly ONCE.
+}

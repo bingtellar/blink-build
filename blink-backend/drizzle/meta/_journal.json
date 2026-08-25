@@ -1,0 +1,97 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1784353693996,
+      "tag": "0000_concerned_carmella_unuscione",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784378443281,
+      "tag": "0001_material_yellowjacket",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784389187533,
+      "tag": "0002_slimy_silvermane",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784443943699,
+      "tag": "0003_melted_white_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784461760385,
+      "tag": "0004_special_alex_power",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1784473872631,
+      "tag": "0005_dry_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1784475851918,
+      "tag": "0006_puzzling_centennial",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1784677534901,
+      "tag": "0007_zippy_stature",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1784953983704,
+      "tag": "0008_white_ultimates",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1785974297231,
+      "tag": "0009_thankful_ultimatum",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1786070618915,
+      "tag": "0010_cool_war_machine",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1786403611092,
+      "tag": "0011_flaky_runaways",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1786754531733,
+      "tag": "0012_groovy_miss_america",
+      "breakpoints": true
+    }
+  ]
+}
