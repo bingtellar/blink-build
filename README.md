@@ -50,6 +50,9 @@ We have provided CLI scripts using `@stellar/stellar-sdk` to test on-chain actio
 
 npx ts-node scripts/deploy_escrow.ts
 
+# Claim Principal
+npx ts-node scripts/claim.ts
+
 # Claim Principal + Yield
 
 npx ts-node scripts/claim_with_yield.ts
