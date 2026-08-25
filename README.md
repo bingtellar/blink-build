@@ -103,15 +103,12 @@ Tests mathematical simulation models, APY oracle fetches, and protocol fee deduc
 
 Tests temporal parsing, deterministic arithmetic, and runway forecasting:
 
-| Test Objective             | Reviewer Prompt                                                                       | Verified Behavior                                                                                      |
-| :------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------- |
-| **Punctuation Resilience** | `"Our account balance."`                                                              | Handles trailing punctuation gracefully and immediately returns the exact wallet balance ($177.00).    |
-| **Survival Analysis**      | `"What is my monthly burn rate? How long will our capital last?"`                     | Computes 30-day trailing outflow velocity ($/day) and projects remaining liquid runway in days/months. |
-| **Categorized Inflows**    | `"What were our total inflows this week?"`                                            | Evaluates ledger deposits/receivables and isolates inflows from internal sub-ledger sweeps.            |
-| **Zero-State Context**     | `"How much did I spend today?"` _(if zero spend)_ "How much was withdrawn this week?" |
-
-"Show me our biggest expenses this month" and
-"How many failed payments did we have today?" | Displays conversational zero-state context without falling back into generic FAQ responses. |
+| Test Objective             | Reviewer Prompt                                                                                                                                                                              | Verified Behavior                                                                                      |
+| :------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **Punctuation Resilience** | `"Our account balance."`                                                                                                                                                                     | Handles trailing punctuation gracefully and immediately returns the exact wallet balance ($177.00).    |
+| **Survival Analysis**      | `"What is my monthly burn rate? How long will our capital last?"`                                                                                                                            | Computes 30-day trailing outflow velocity ($/day) and projects remaining liquid runway in days/months. |
+| **Categorized Inflows**    | `"What were our total inflows this week?"`                                                                                                                                                   | Evaluates ledger deposits/receivables and isolates inflows from internal sub-ledger sweeps.            |
+| **Zero-State Context**     | `"How much did I spend today?"`<br>`"How much was withdrawn this week?"`<br>`"Show me our biggest expenses this month"`<br>`"How many failed payments did we have today?"` _(if zero spend)_ | Displays conversational zero-state context without falling back into generic FAQ responses.            |
 
 ---
 
