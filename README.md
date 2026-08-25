@@ -99,7 +99,7 @@ Tests mathematical simulation models, APY oracle fetches, and protocol fee deduc
 
 ---
 
-### 3. Treasury Cashflow, Burn Rate & Runway Projections
+### 3. Treasury Cashflow, Burn Rate & Runway Projections, Proper enterprise enterprise accounting and detailed analytics on operations
 
 Tests temporal parsing, deterministic arithmetic, and runway forecasting:
 
