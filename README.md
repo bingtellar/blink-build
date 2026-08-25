@@ -39,6 +39,7 @@ Verify zero compiler warnings or security flaws across all Rust crates:
 ````bash
 cd blink-contracts
 cargo clippy --all-targets --all-features -- -D warnings
+```
 
 ### 3. Manual On-Chain Interaction Scripts
 We have provided CLI scripts using `@stellar/stellar-sdk` to test on-chain actions directly on Testnet:
