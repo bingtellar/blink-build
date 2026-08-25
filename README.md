@@ -66,3 +66,79 @@ npx ts-node scripts/reclaim.ts
 
 npx ts-node scripts/test-usdc-onchain-deposit.ts
 ```
+
+---
+
+## 🤖 Radar AI Copilot — Interactive Auditor Test Suite
+
+The Blink staging interface includes **Radar Copilot**, an intelligent, context-aware treasury assistant powered by Groq LLaMA 3.3, deterministic SQL indexers, and on-chain Soroban event bridges.
+
+Reviewers can open the Radar Copilot chat window on [Staging](https://app.ourblink.cash) and test the following interaction suites:
+
+### 1. On-Chain Ledger & Soroban Contract Audits
+
+Tests multi-table SQL querying, dynamic filter chaining, and valid `stellar.expert` explorer link generation:
+
+| Reviewer Prompt                                                | Core Logic / Layer Tested  | Expected Behavior                                                                                                |
+| :------------------------------------------------------------- | :------------------------- | :--------------------------------------------------------------------------------------------------------------- |
+| `"Show me all claimed escrows this month"`                     | Layer 3.2 (Escrow SQL)     | Returns `CLAIM_COMPLETED` escrows, sums total volume, and renders clickable Soroban Vault & Settlement Tx links. |
+| `"Show me all escrows this month and their smart contract ID"` | SEP-41 Contract Validation | Renders the 56-character Contract ID (`C...`) linked to `stellar.expert`, alongside the active Yield Policy.     |
+| `"Show me all cancelled escrows"`                              | Edge-Case Indexing         | Surfaces `claim_canceled` records with exact timestamp, penalty allocations, and refund status.                  |
+| `"Which escrows are currently locked?"`                        | Dynamic Filtering          | Filters for active/funded vaults without `.limit(10)` truncation, showing locked principal and yield strategy.   |
+
+---
+
+### 2. DeFindex Yield Simulation & Compound Math
+
+Tests mathematical simulation models, APY oracle fetches, and protocol fee deductions:
+
+- **Prompt:** `"How much yield will $250,000 USDC earn in 60 days?"`
+  - **Verified Engine:** Calculates compound yield against the live DeFindex strategy APY oracle, itemizing projected earnings net of the 5% platform protocol fee across daily pace, monthly, and 60-day horizons.
+- **Prompt:** `"How much capital is currently earning yield in Soroban escrow vaults?"`
+  - **Verified Engine:** Queries active on-chain float deployed across Blend and DeFindex yield strategies.
+
+---
+
+### 3. Treasury Cashflow, Burn Rate & Runway Projections
+
+Tests temporal parsing, deterministic arithmetic, and runway forecasting:
+
+| Test Objective             | Reviewer Prompt                                                   | Verified Behavior                                                                                      |
+| :------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
+| **Punctuation Resilience** | `"Our account balance."`                                          | Handles trailing punctuation gracefully and immediately returns the exact wallet balance ($177.00).    |
+| **Survival Analysis**      | `"What is my monthly burn rate? How long will our capital last?"` | Computes 30-day trailing outflow velocity ($/day) and projects remaining liquid runway in days/months. |
+| **Categorized Inflows**    | `"What were our total inflows this week?"`                        | Evaluates ledger deposits/receivables and isolates inflows from internal sub-ledger sweeps.            |
+| **Zero-State Context**     | `"How much did I spend today?"` _(if zero spend)_                 | Displays conversational zero-state context without falling back into generic FAQ responses.            |
+
+---
+
+### 4. Multi-Currency Isolation & Regional Fiat Rails
+
+Tests case-insensitive currency isolation and prevents cross-currency aggregate pollution:
+
+- **Prompt:** `"Show me all payments over 10,000 NGN"`
+  - **Verification:** Evaluates `fiatAmount > 10000 AND UPPER(fiatCurrency) = 'NGN'`. All aggregated sums explicitly display the `NGN` denomination rather than defaulting to USD.
+- **Prompt:** `"List withdrawals over 5,000 KES this month"`
+  - **Verification:** Isolates Kenyan Shilling off-ramps without polluting South African Rand (ZAR) or Ghanaian Cedi (GHS) records.
+
+---
+
+### 5. Agentic Action Routing & Intent Stripping
+
+Tests intent extraction, greeting stripping, and UI modal prefilling:
+
+- **Send Money Modal:** `"Please make a transfer of $50 to recipient@example.com"`
+  - _Result:_ Strips conversational filler, opens the Send Modal, and automatically prefills the amount ($50.00) and recipient email.
+- **Fiat Withdrawal Modal:** `"I want to withdraw $100 to my Nigerian bank account"`
+  - _Result:_ Launches the Withdrawal Portal with $100 prefilled and payment method locked to Bank/NGN.
+- **Automated Data Export:** `"Export a CSV statement for this month"`
+  - _Result:_ Generates and triggers the client-side download of `Blink_Treasury_Ledger_THIS_MONTH.csv`.
+
+---
+
+### 6. Institutional Strategy & Narrative Intelligence
+
+Tests high-level corporate treasury questions powered by Groq LLaMA 3.3:
+
+- **Prompt:** `"What problem is Blink solving for enterprise cross-border payments?"`
+- **Prompt:** `"Explain why tokenized float on Stellar is superior to traditional 3-day correspondent bank settlement."`
