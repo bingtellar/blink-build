@@ -64,6 +64,9 @@ npx ts-node scripts/claim_with_yield.ts
 # Cancel escrow payment & Execute Penalty Routing
 npx ts-node scripts/cancel.ts
 
+# Verify and read the raw, immutable state of your Soroban smart contract directly from the Stellar blockchain
+npx ts-node scripts/verify_vault.ts
+
 # Reclaim Expired Escrow
 npx ts-node scripts/reclaim.ts
 
