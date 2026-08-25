@@ -45,6 +45,7 @@ cargo clippy --all-targets --all-features -- -D warnings
 
 We have provided CLI scripts using `@stellar/stellar-sdk` to test on-chain actions directly on Testnet:
 
+```bash
 # Deploy Escrow Vault
 
 npx ts-node scripts/deploy_escrow.ts
@@ -64,3 +65,4 @@ npx ts-node scripts/reclaim.ts
 # Deposit USDC to Stellar Address
 
 npx ts-node scripts/test-usdc-onchain-deposit.ts
+```
