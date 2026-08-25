@@ -140,7 +140,40 @@ Tests intent extraction, greeting stripping, and UI modal prefilling:
 
 ### 6. Institutional Strategy & Narrative Intelligence
 
-Tests high-level corporate treasury questions powered by Groq LLaMA 3.3:
+Tests high-level corporate treasury questions:
 
 - **Prompt:** `"What problem is Blink solving for enterprise cross-border payments?"`
 - **Prompt:** `"Explain why tokenized float on Stellar is superior to traditional 3-day correspondent bank settlement."`
+
+---
+
+### 7. ⚡ Stellar & Soroban Deep-Dive (SCF Reviewer Special)
+
+Tests Radar’s domain expertise on Soroban smart contract architecture, SEP-41 token semantics, cross-contract DeFi composability, and Stellar network economics. Helps with enlightening Enterprises on what's possible with Stellar
+
+| Reviewer Prompt                                                                              | Verified Architectural Layer             | What Radar Surfaces & Proves                                                                                                                                                                |
+| :------------------------------------------------------------------------------------------- | :--------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `"What is Stellar?"`                                                                         | **Ecosystem Baseline (L1)**              | Explains Stellar's core purpose as a decentralized, low-fee network optimized for cross-border asset issuance and fast payments.                                                            |
+| `"What is Soroban?"`                                                                         | **Ecosystem Baseline (Smart Contracts)** | Defines Soroban as Stellar's native, Rust-based smart contract platform built for scale, predictable fees, and DeFi composability.                                                          |
+| `"How does Blink use Soroban require_auth for non-custodial safety?"`                        | **Soroban Auth Framework**               | Details non-custodial authorization, multi-sig compliance, and how granular `Address::require_auth()` guarantees only the designated sender or recipient can interact with vault funds.     |
+| `"Explain how Soroban TTL and state archiving are managed in Blink vaults."`                 | **State & Storage Management**           | Breaks down the differentiation between `Instance`, `Persistent`, and `Temporary` storage, detailing how Blink's auto-relayer extends TTL thresholds to prevent archival of active escrows. |
+| `"How does Blink execute cross-contract calls to DeFindex and Blend on Soroban?"`            | **DeFi Composability**                   | Explains the invocation lifecycle from the Blink Escrow Factory into DeFindex strategy routers and Blend lending pools, complete with WASM gas efficiency comparisons.                      |
+| `"Why is Blink's dual-tracking oracle built on Soroban contract events instead of Horizon?"` | **SEP-41 Event Streaming**               | Contrasts real-time Soroban RPC event subscriptions (`env.events().publish(...)`) with legacy REST polling, proving zero-drop ledger reconciliation.                                        |
+| `"Compare Stellar's 5-second finality and fee model vs. EVM L2s for cross-border payroll."`  | **Network Economics**                    | Generates an institutional comparison highlighting fractional-cent network fees ($0.00001/tx), native deterministic settlement, and the elimination of L2 bridge re-org risks.              |
+| `"How does Blink eliminate 'dead float' using Soroban vaults and Stellar Anchors?"`          | **B2B Value Proposition**                | Explains the bridge between SEP-24/SEP-31 fiat off-ramps and interest-bearing Soroban escrow pools—turning transit float into yield-bearing working capital.                                |
+
+---
+
+### 🧪 Live Soroban CLI & RPC Audit Prompts
+
+Reviewers can test direct Web3 queries in Radar Copilot to inspect live testnet state:
+
+- **WASM Hash Verification:**
+  - _Prompt:_ `"What is our current Soroban vault WASM hash and factory contract address?"`
+  - _Radar Output:_ Returns the compiled WASM hash (`c488f7f8...`) and Factory Contract (`CBXX6PF5...`) linked directly to `stellar.expert/explorer/testnet`.
+- **SEP-41 USDC Integration:**
+  - _Prompt:_ `"Which USDC contract address is configured for our Soroban testnet vaults?"`
+  - _Radar Output:_ Returns `CCRKWNDORTBX5XFCQIM7PZEH6AEBZSPYKAWOYL65DL3OYIXO65Y3UYGJ` with token balance validation.
+- **Smart Yield Routing Policies:**
+  - _Prompt:_ `"Explain the three yield split policies available in our Soroban vault contracts."`
+  - _Radar Output:_ Itemizes **Sender Retains Yield**, **Recipient Earns Yield**, and **50/50 Split (Incentive Alignment)**.
