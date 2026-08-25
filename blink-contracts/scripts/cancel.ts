@@ -5,11 +5,11 @@ dotenv.config();
 const server = new rpc.Server("https://soroban-testnet.stellar.org");
 const alice = Keypair.fromSecret(process.env.ADMIN_SECRET!); 
 
-// 🟢 PASTE YOUR VAULT ID HERE
-const VAULT_CONTRACT_ID = "CDXHDTWBIOPKAPVQOTPGDVZFY2ZYZ6P3U5WQ3BI25G7E44FJ2OHOHRHC"; 
+// 🟢 WHEN TESTING PLEASE PASTE YOUR VAULT ID HERE
+const VAULT_CONTRACT_ID = "CCRZZ6PUHF5B5B3XVX7OBTGQN7BO46P4IEXBCUF5OYCYG5NXQJUOGAMR"; 
 
 async function executeCancel() {
-    console.log(`🌊 Starting Bingtellar Cancel/Undo Protocol...`);
+    console.log(`🌊 Starting BLINK Cancel/Undo Protocol...`);
     console.log(`🎯 Target Vault: ${VAULT_CONTRACT_ID}`);
 
     const vault = new Contract(VAULT_CONTRACT_ID);
@@ -71,7 +71,7 @@ async function executeCancel() {
         } 
         else if (errorString.includes("#9")) {
             console.error("⚠️  REASON: Protocol Paused.");
-            console.error("💡 FIX: The Bingtellar admin has temporarily paused the protocol.");
+            console.error("💡 FIX: The BLINK (Bingtellar) super admin has temporarily paused the protocol.");
         }
         else {
             console.error("🔍 RAW ERROR:", errorString);
