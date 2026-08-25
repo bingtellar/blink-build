@@ -36,27 +36,31 @@ Our engineering velocity outpaced our initial roadmap. The protocol currently fe
 
 Verify zero compiler warnings or security flaws across all Rust crates:
 
-````bash
+```bash
 cd blink-contracts
 cargo clippy --all-targets --all-features -- -D warnings
 ```
 
 ### 3. Manual On-Chain Interaction Scripts
+
 We have provided CLI scripts using `@stellar/stellar-sdk` to test on-chain actions directly on Testnet:
 
-```bash
 # Deploy Escrow Vault
+
 npx ts-node scripts/deploy_escrow.ts
 
 # Claim Principal + Yield
+
 npx ts-node scripts/claim_with_yield.ts
 
 # Cancel escrow payment & Execute Penalty Routing
+
 npx ts-node scripts/cancel.ts
 
 # Reclaim Expired Escrow
+
 npx ts-node scripts/reclaim.ts
 
 # Deposit USDC to Stellar Address
+
 npx ts-node scripts/test-usdc-onchain-deposit.ts
-````
