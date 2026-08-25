@@ -48,25 +48,26 @@ We have provided CLI scripts using `@stellar/stellar-sdk` to test on-chain actio
 ```bash
 # Deploy Escrow Vault
 
+# Deploy Escrow Vault
 npx ts-node scripts/deploy_escrow.ts
 
-# Claim Principal
+# Standard Claim (Principal Only)
 npx ts-node scripts/claim.ts
 
-# Claim Principal + Yield
+# --- Yield Auditing Flow ---
+# 1. Audit live vault balance & get RAW atomic number
+npx ts-node scripts/check_vault_balance.ts
 
+# 2. Claim Principal + Yield (using RAW number)
 npx ts-node scripts/claim_with_yield.ts
 
 # Cancel escrow payment & Execute Penalty Routing
-
 npx ts-node scripts/cancel.ts
 
 # Reclaim Expired Escrow
-
 npx ts-node scripts/reclaim.ts
 
 # Deposit USDC to Stellar Address
-
 npx ts-node scripts/test-usdc-onchain-deposit.ts
 ```
 
