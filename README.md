@@ -71,7 +71,7 @@ npx ts-node scripts/test-usdc-onchain-deposit.ts
 
 ## 🤖 Radar AI Copilot — Interactive Auditor Test Suite
 
-The Blink staging interface includes **Radar Copilot**, an intelligent, context-aware treasury assistant powered by Groq LLaMA 3.3, deterministic SQL indexers, and on-chain Soroban event bridges.
+The Blink staging interface includes **Radar Copilot**, an intelligent, context-aware treasury assistant, deterministic SQL indexers, and on-chain Soroban event bridges.
 
 Reviewers can open the Radar Copilot chat window on [Staging](https://app.ourblink.cash) and test the following interaction suites:
 
@@ -103,12 +103,15 @@ Tests mathematical simulation models, APY oracle fetches, and protocol fee deduc
 
 Tests temporal parsing, deterministic arithmetic, and runway forecasting:
 
-| Test Objective             | Reviewer Prompt                                                   | Verified Behavior                                                                                      |
-| :------------------------- | :---------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------- |
-| **Punctuation Resilience** | `"Our account balance."`                                          | Handles trailing punctuation gracefully and immediately returns the exact wallet balance ($177.00).    |
-| **Survival Analysis**      | `"What is my monthly burn rate? How long will our capital last?"` | Computes 30-day trailing outflow velocity ($/day) and projects remaining liquid runway in days/months. |
-| **Categorized Inflows**    | `"What were our total inflows this week?"`                        | Evaluates ledger deposits/receivables and isolates inflows from internal sub-ledger sweeps.            |
-| **Zero-State Context**     | `"How much did I spend today?"` _(if zero spend)_                 | Displays conversational zero-state context without falling back into generic FAQ responses.            |
+| Test Objective             | Reviewer Prompt                                                                       | Verified Behavior                                                                                      |
+| :------------------------- | :------------------------------------------------------------------------------------ | :----------------------------------------------------------------------------------------------------- |
+| **Punctuation Resilience** | `"Our account balance."`                                                              | Handles trailing punctuation gracefully and immediately returns the exact wallet balance ($177.00).    |
+| **Survival Analysis**      | `"What is my monthly burn rate? How long will our capital last?"`                     | Computes 30-day trailing outflow velocity ($/day) and projects remaining liquid runway in days/months. |
+| **Categorized Inflows**    | `"What were our total inflows this week?"`                                            | Evaluates ledger deposits/receivables and isolates inflows from internal sub-ledger sweeps.            |
+| **Zero-State Context**     | `"How much did I spend today?"` _(if zero spend)_ "How much was withdrawn this week?" |
+
+"Show me our biggest expenses this month" and
+"How many failed payments did we have today?" | Displays conversational zero-state context without falling back into generic FAQ responses. |
 
 ---
 
@@ -131,6 +134,8 @@ Tests intent extraction, greeting stripping, and UI modal prefilling:
   - _Result:_ Strips conversational filler, opens the Send Modal, and automatically prefills the amount ($50.00) and recipient email.
 - **Fiat Withdrawal Modal:** `"I want to withdraw $100 to my Nigerian bank account"`
   - _Result:_ Launches the Withdrawal Portal with $100 prefilled and payment method locked to Bank/NGN.
+- **USDC Withdrawal Modal:** `"Withdraw 2 usdc to Stellar wallet at MBFJJEHHGQTQW7K4KTUB7RQELDUD6PVAVPW3DVAGL5AKIWN740HZ6AAAAGQBRC6J6SAV4 and label it as Marketing budget"`
+  - _Result:_ Launches the Crypto Withdrawal Portal with $2 prefilled and payment locked to SDC Withdrawal with the USDC Stellar wallet address named and saved as Marketing budget.
 - **Automated Data Export:** `"Export a CSV statement for this month"`
   - _Result:_ Generates and triggers the client-side download of `Blink_Treasury_Ledger_THIS_MONTH.csv`.
 
