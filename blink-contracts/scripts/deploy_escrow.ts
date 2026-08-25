@@ -28,7 +28,7 @@ async function deploy() {
     // Toggle this between "Instant" and "Lock" when deploying different vault types.
     const AGREEMENT_TYPE: string = "Instant";
     
-    const factory = new Contract("CBXX6PF5CYXFNYNTGWOEERN5BLOTREMRCS66ZHHRPTAFYEFXQXC6TYCM"); 
+    const factory = new Contract("CBXY2FTCSWNIBBNOEGIYCYF2RK5OXRCU2ACH5G7ZVMHAHZTPC2XRICCO"); 
     const DEFINDEX_VAULT = process.env.DEFINDEX_VAULT_ADDRESS!;
     const vaultWasmHash = process.env.VAULT_WASM_HASH!;
     const ASSET_ADDRESS = process.env.TESTNET_USDC!;
@@ -62,6 +62,10 @@ async function deploy() {
     // Note: Soroban Maps MUST be alphabetically sorted by key. This is perfectly sorted.
     const configMap = xdr.ScVal.scvMap([
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("agreement_type"), val: xdr.ScVal.scvVec([xdr.ScVal.scvSymbol(AGREEMENT_TYPE)]) }),
+        
+        // 🟢 ADDED: arbitrator (Alphabetically falls under 'a')
+        new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("arbitrator"), val: new Address(TREASURY_ADDRESS).toScVal() }),
+        
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("asset"), val: new Address(ASSET_ADDRESS).toScVal() }),
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("base_fee"), val: nativeToScVal(BASE_FEE_AMOUNT, { type: "i128" }) }),
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("cancellation_fee"), val: nativeToScVal(CANCELLATION_FEE_AMOUNT, { type: "i128" }) }),
@@ -75,6 +79,9 @@ async function deploy() {
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("reserve_ratio_bps"), val: nativeToScVal(1000, { type: 'u32' }) }), 
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("sender"), val: new Address(alice.publicKey()).toScVal() }),
         new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("share_token_address"), val: new Address(DEFINDEX_VAULT).toScVal() }),
+        
+        // 🟢 ADDED: yield_policy (Alphabetically falls under 'y')
+        new xdr.ScMapEntry({ key: xdr.ScVal.scvSymbol("yield_policy"), val: xdr.ScVal.scvVec([xdr.ScVal.scvSymbol("Recipient")]) }),
     ]);
 
     // --- STEP 3: ASSEMBLE WITH SINGLE-STEP AUTH ---
