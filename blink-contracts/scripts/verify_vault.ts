@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const server = new rpc.Server("https://soroban-testnet.stellar.org");
-const vaultId = "CCRZZ6PUHF5B5B3XVX7OBTGQN7BO46P4IEXBCUF5OYCYG5NXQJUOGAMR";
+const vaultId = "CA63AFFB22RRNSAF2GHWK4BWS6VAYGBQM6KC36PTSRDKJYTEE2SGCAZ3";
 
 async function auditStorage() {
     console.log(`🕵️‍♂️  Deep Auditing Ledger for Vault: ${vaultId}`);

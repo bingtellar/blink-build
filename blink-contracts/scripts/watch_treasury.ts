@@ -33,7 +33,7 @@ async function sendTelegram(message: string) {
 }
 
 console.log("-------------------------------------------------------");
-console.log("💰 BINGTELLAR BLINK REVENUE WATCHER: ONLINE 🚀");
+console.log("💰 BLINK (BINGTELLAR) REVENUE WATCHER: ONLINE 🚀");
 console.log(`📡 Monitoring: ${TREASURY_ADDRESS}`);
 console.log("-------------------------------------------------------");
 

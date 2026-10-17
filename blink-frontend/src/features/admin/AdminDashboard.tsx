@@ -237,8 +237,23 @@ export const AdminDashboard = () => {
         const currentCancellationFee = Number(savedFees.cancellation) || 1.00;
 
         // 🌟 FIX 3: True Mathematical Revenue Engine
-        // Pulls actual fee calculations natively processed by the backend schema mapping
-        const creationFees = payments.reduce((sum, p) => sum + Number(p.feeAmount || 0), 0);
+        // ---------------------------------------------------------
+        // 🌟 THE FINAL FIX: Context-Aware Mathematical Revenue Engine
+        // Perfectly synchronizes Dashboard KPIs with the Revenue Ledger
+        // ---------------------------------------------------------
+        const creationFees = payments.reduce((sum, p: any) => {
+            const fee = Number(p.feeAmount || 0);
+            const status = (p.status || '').toLowerCase();
+            
+            const hasOnChainContract = p.contractId && String(p.contractId).startsWith("C") && !String(p.contractId).includes("MOCK");
+            const isOffChainCancelled = !hasOnChainContract && ['failed', 'cancelled', 'claim_canceled', 'expired'].includes(status);
+            
+            // Strictly recognize positive revenue that hasn't been refunded off-chain or left pending
+            if (fee > 0 && status !== 'pending' && !isOffChainCancelled) {
+                return sum + fee;
+            }
+            return sum;
+        }, 0);
 
         const claimFees = payments
             .filter(p => checkSuccess(p.status))

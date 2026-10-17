@@ -6,7 +6,7 @@ const server = new rpc.Server("https://soroban-testnet.stellar.org");
 const alice = Keypair.fromSecret(process.env.ADMIN_SECRET!); 
 
 // 🟢 WHEN TESTING PLEASE PASTE YOUR VAULT ID HERE
-const VAULT_CONTRACT_ID = "CCRZZ6PUHF5B5B3XVX7OBTGQN7BO46P4IEXBCUF5OYCYG5NXQJUOGAMR"; 
+const VAULT_CONTRACT_ID = "CDPYJR5UIZDGS72DCJALNCHH35MD3BKLPAI3VUWU7CLINMVKAZMEPAFD"; 
 
 async function executeCancel() {
     console.log(`🌊 Starting BLINK Cancel/Undo Protocol...`);

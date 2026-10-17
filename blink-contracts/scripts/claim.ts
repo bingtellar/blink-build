@@ -6,8 +6,8 @@ const server = new rpc.Server("https://soroban-testnet.stellar.org");
 const alice = Keypair.fromSecret(process.env.ADMIN_SECRET!); 
 
 // 🟢 UPDATED: Using the credentials from your latest successful deployment!
-const VAULT_CONTRACT_ID = "CCH52BVLBKXAOAYAFZVYM3IEPXASGUXNKCGBC247ZY7OVAN7ETG52VUY"; 
-const SECRET_HEX = "d2adaebf1df78d00359891f2f2412d539c4c98190a70b433c82a797075c243ef";
+const VAULT_CONTRACT_ID = "CA63AFFB22RRNSAF2GHWK4BWS6VAYGBQM6KC36PTSRDKJYTEE2SGCAZ3"; 
+const SECRET_HEX = "27a2b26be88984e3ff322de893650fee1efd2233eb9bfc71b37f26ae021cb701";
 
 async function executeClaim() {
     console.log(`🌊 Starting BLINK (Bingtellar) Claim Protocol...`);

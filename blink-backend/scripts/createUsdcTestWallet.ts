@@ -43,7 +43,7 @@ const createAndTrustWallet = async () => {
     try {
         const txResult = await server.submitTransaction(tx);
         console.log(`✅ Trustline established! TX Hash: ${txResult.hash}`);
-        console.log("\n🚀 This wallet is now ready to receive Bingtellar USDC withdrawals.");
+        console.log("\n🚀 This wallet is now ready to receive Stellar USDC deposits and withdrawals.");
     } catch (error: any) {
         console.error("❌ Failed to add trustline:", error.response?.data?.extras?.result_codes || error);
     }

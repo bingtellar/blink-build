@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const server = new rpc.Server("https://soroban-testnet.stellar.org");
-const VAULT_ID = "CCRZZ6PUHF5B5B3XVX7OBTGQN7BO46P4IEXBCUF5OYCYG5NXQJUOGAMR";
+const VAULT_ID = "CDPYJR5UIZDGS72DCJALNCHH35MD3BKLPAI3VUWU7CLINMVKAZMEPAFD";
 const USDC_ID = "CCRKWNDORTBX5XFCQIM7PZEH6AEBZSPYKAWOYL65DL3OYIXO65Y3UYGJ";
 
 async function checkBalance() {

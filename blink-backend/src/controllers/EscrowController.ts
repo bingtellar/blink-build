@@ -463,7 +463,27 @@ export const EscrowController = {
         }
       }
 
-      const refundAmount = Math.max(0, parseFloat(escrowRecord.amountLocked as string || "0") - 1.00).toFixed(2);
+      // ---------------------------------------------------------
+      // 🟢 THE FINAL FIX: Context-Aware Sunk Cost Math
+      // ---------------------------------------------------------
+      const rawPrincipal = parseFloat(escrowRecord.amountLocked as string || "0");
+      const rawFee = parseFloat(escrowRecord.feeAmount as string || "0");
+      const penaltyAmount = 1.00;
+      
+      let refundAmount = "0.00";
+      let actualPenalty = 0.00;
+
+      if (hasOnChainContract) {
+          // On-Chain (Contract deployed): The Factory took the fee. Refund Principal minus penalty.
+          actualPenalty = rawPrincipal >= penaltyAmount ? penaltyAmount : rawPrincipal;
+          refundAmount = (rawPrincipal - actualPenalty).toFixed(2);
+      } else {
+          // Off-Chain / Fiat / Timeout: Fee was never deployed. Refund Principal + Unspent Fee minus penalty.
+          const totalPaidOut = rawPrincipal + rawFee;
+          actualPenalty = totalPaidOut >= penaltyAmount ? penaltyAmount : totalPaidOut;
+          refundAmount = (totalPaidOut - actualPenalty).toFixed(2);
+      }
+
       const currentTimeline = typeof escrowRecord.timeline === 'string' ? JSON.parse(escrowRecord.timeline) : (escrowRecord.timeline || []);
       const updatedTimeline = [...currentTimeline, { state: "claim_canceled", timestamp: new Date().toISOString(), metadata: { notes: reason || "Sender manually cancelled." } }];
 

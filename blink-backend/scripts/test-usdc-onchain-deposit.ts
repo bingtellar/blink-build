@@ -14,8 +14,8 @@ config();
 
 const simulateExternalDeposit = async () => {
     // ⚠️ Ensure this is your test user's wallet address!
-    const TARGET_USER_WALLET = "GCHHFGQBNBYODEEA2LSQW36IEAB5HVTRNUAYW3TLKS7DNPVSISYVLJF5";  
-    const depositAmount = 10; 
+    const TARGET_USER_WALLET = "GCH7VDVHRU6UYSBVAT7CTKMNKQSPPC3U534EA2VCRN7QSKC4PF3FHBR7";  
+    const depositAmount = 20; 
 
     try {
         const TREASURY_SECRET = process.env.PLATFORM_FUNDING_SECRET;

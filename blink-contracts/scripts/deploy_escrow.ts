@@ -33,7 +33,7 @@ async function deploy() {
     const vaultWasmHash = process.env.VAULT_WASM_HASH!;
     const ASSET_ADDRESS = process.env.TESTNET_USDC!;
     
-    const PRINCIPAL_AMOUNT = 50000000n;        // 5.00 XLM/USDC
+    const PRINCIPAL_AMOUNT = 100000000n;        // 5.00 XLM/USDC
     const BASE_FEE_AMOUNT = 10000000n;         // $1.00 Fee
     const CANCELLATION_FEE_AMOUNT = 10000000n; // $1.00 Penalty
     const principalVal = nativeToScVal(PRINCIPAL_AMOUNT, { type: "i128" });
